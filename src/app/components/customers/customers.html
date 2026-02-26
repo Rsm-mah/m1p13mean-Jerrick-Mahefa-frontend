@@ -1,0 +1,97 @@
+<div class="customers-page">
+    <div class="customers-header">
+        <div class="header-left">
+            <h1>Clients</h1>
+        </div>
+    </div>
+
+    <div class="loading-container" *ngIf="isLoading">
+        <div class="loading-content">
+        <mat-spinner diameter="48"></mat-spinner>
+        <p>Chargement des catégories...</p>
+        </div>
+    </div>
+
+    <div class="error-container" *ngIf="!isLoading && errorMessage">
+        <div class="error-content">
+        <mat-icon class="error-icon">error_outline</mat-icon>
+        <h3>Une erreur est survenue</h3>
+        <p>{{ errorMessage }}</p>
+        <button class="retry-btn" (click)="retry()">
+            <mat-icon>refresh</mat-icon>
+            Réessayer
+        </button>
+        </div>
+    </div>
+
+    <mat-card-content *ngIf="!isLoading && !errorMessage">
+        <div class="customers-table-container">
+            <table class="customers-table">
+                <thead>
+                    <tr>
+                        <th><span class="th-label">Noms</span></th>
+                        <th><span class="th-label">Email</span></th>
+                        <th><span class="th-label">Phone</span></th>
+                        <th><span class="th-label">Adresse</span></th>
+                        <th></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr *ngFor="let customer of customers">
+
+                        <!-- NOM -->
+                        <td>
+                            <div class="name-cell">
+                                <div class="name-meta">
+                                <span class="name-primary">{{ customer.name + ' ' + customer.first_name }}</span>
+                                </div>
+                            </div>
+                        </td>
+
+                        <!-- EMAIL -->
+                        <td>
+                            <div class="attr-line">
+                                <div class="attr-label">
+                                    {{ customer.email }}
+                                </div>
+                            </div>
+                        </td>
+
+                        <!-- PHONE -->
+                        <td>
+                            <div class="attr-line">
+                                <div class="attr-label">
+                                    {{ customer.phone }}
+                                </div>
+                            </div>
+                        </td>
+
+                        <!-- ADRESSE -->
+                        <td>
+                            <div class="attr-line">
+                                <div class="attr-label">
+                                    {{ customer.address }}
+                                </div>
+                            </div>
+                        </td>
+
+                        <!-- ACTIONS -->
+                        <td>
+                            <div class="actions-cell">
+                                <button class="act-btn" title="Modifier">
+                                    <mat-icon>edit</mat-icon>
+                                </button>
+                                <button class="act-btn del" title="Supprimer">
+                                <mat-icon>delete</mat-icon>
+                                </button>
+                            </div>
+                        </td>
+
+                    </tr>
+                </tbody>
+
+            </table>
+        </div>
+    </mat-card-content>
+</div>

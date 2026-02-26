@@ -1,0 +1,87 @@
+<app-navbar></app-navbar>
+
+<div class="page-wrapper">
+  <div class="container">
+
+    <div class="page-header animate-fade-up">
+      <span class="section-eyebrow">Mon espace</span>
+      <h1 class="section-title">Mes Commandes</h1>
+      <p class="page-subtitle">Retrouvez l'historique complet de vos achats</p>
+    </div>
+
+    <!-- STATS STRIP -->
+    <div class="orders-stats animate-fade-up-1">
+        <div class="stat-card">
+            <span class="stat-value">{{ totalOrders }}</span>
+            <span class="stat-label">Commandes totales</span>
+        </div>
+        <div class="stat-sep"></div>
+        <div class="stat-card">
+            <span class="stat-value">{{ totalSpent | number }} Ar</span>
+            <span class="stat-label">Total dépensé</span>
+        </div>
+        <div class="stat-sep"></div>
+        <div class="stat-card">
+            <span class="stat-value">{{ inProgress }}</span>
+            <span class="stat-label">En cours</span>
+        </div>
+    </div>
+
+    <!-- FILTERS -->
+    <!-- <div class="order-filters animate-fade-up-2">
+      <button class="order-filter-btn active">Toutes</button>
+      <button class="order-filter-btn">En cours</button>
+      <button class="order-filter-btn">Livrées</button>
+      <button class="order-filter-btn">Annulées</button>
+      <div class="filter-search-wrap">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input class="filter-search" placeholder="N° de commande…">
+      </div>
+    </div> -->
+
+    <!-- ORDERS LIST -->
+    <div class="orders-list">
+
+      <!-- Order 2 — Livrée -->
+      <div class="order-card animate-fade-up-2" *ngFor="let order of orders; let i = index">
+        <div class="order-card-header">
+          <div class="order-meta">
+            <span class="order-num">#{{ order._id | slice:0:8 }}</span>
+            <span class="badge" [ngClass]="{
+              'badge-green': order.status === 'EN COURS',
+              'badge-neutral': order.status === 'LIVREE',
+              'badge-red': order.status === 'ANNULEE'
+            }">{{ order.status }}</span>
+          </div>
+        </div>
+
+        <div class="order-card-body">
+          <div class="order-items-preview">
+            <div *ngIf="getExtraItemsCount(order.items) > 0" class="preview-more">
+              +{{ getExtraItemsCount(order.items) }}
+            </div>
+          </div>
+          <div class="order-summary-col">
+            <div class="order-date">Commande du : {{ order.createdAt | date:'dd MMMM yyyy' }}</div>
+            <span class="order-total-line">Total : <strong>{{ order.totalAmount | number }} Ar</strong></span>
+          </div>
+        </div>
+
+        <div class="order-card-footer">
+          <span class="delivery-estimate delivered"></span>
+          <div class="order-actions">
+            <button
+              class="order-action-btn ghost"
+              [routerLink]="['/orders-detail', order._id]"
+            >
+              Voir
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- <app-footer></app-footer> -->
+</div>

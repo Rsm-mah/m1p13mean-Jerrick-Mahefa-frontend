@@ -1,0 +1,196 @@
+<div class="modal-container">
+  <div class="modal-header">
+    <div class="modal-title">
+      <h2>{{ getTitle() }}</h2>
+      <p>{{ getSubtitle() }}</p>
+    </div>
+    <button class="close-btn" (click)="close()" [disabled]="isLoading">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <div class="modal-body">
+    <div class="form-section">
+      
+      <div class="form-row">
+        <div class="form-group">
+          <label>Nom du produit <span class="required">*</span></label>
+          <input 
+            type="text" 
+            class="form-control"
+            placeholder="ex : Smartphone"
+            [(ngModel)]="product.name"
+            [disabled]="isLoading"
+          >
+        </div>
+
+        <div class="form-group">
+          <label>Categorie <span class="required">*</span></label>
+          <select 
+            class="form-control"
+            [(ngModel)]="product.categoryId" 
+            (change)="onCategoryChange()"
+            [disabled]="isLoading"
+          >
+            <option value="">Sélectionner une catégorie</option>
+            <option *ngFor="let c of categories" [value]="c._id">
+              {{ c.name }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Description</label>
+        <textarea 
+          class="form-control"
+          rows="3"
+          placeholder="Décrivez votre produit..."
+          [(ngModel)]="product.description"
+          [disabled]="isLoading"
+        ></textarea>
+      </div>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <div class="form-section" *ngIf="selectedCategory">
+      <div class="section-header">
+        <h3>Détails du produit</h3>
+        <span class="category-badge">{{ selectedCategory.name }}</span>
+      </div>
+
+      <div class="attributes-grid">
+        <div class="form-group" *ngFor="let attr of selectedCategory.attributes">
+          <label>{{ attr.label }}</label>
+          
+          <!-- String / Number input -->
+          <input 
+            *ngIf="attr.type === 'string' || attr.type === 'number'"
+            type="text" 
+            class="form-control"
+            [placeholder]="'Enter ' + attr.label.toLowerCase()"
+            [(ngModel)]="product.details[0].attributes[attr.key]"
+            [disabled]="isLoading"
+          >
+
+          <!-- Select dropdown -->
+          <select 
+            *ngIf="attr.type === 'select'"
+            class="form-control"
+            [(ngModel)]="product.details[0].attributes[attr.key]"
+            [disabled]="isLoading"
+          >
+            <option value="">Sélectionner un(e) {{ attr.label }}</option>
+            <option *ngFor="let opt of attr.options" [value]="opt">
+              {{ opt }}
+            </option>
+          </select>
+
+          <!-- Boolean checkbox -->
+          <div *ngIf="attr.type === 'boolean'" class="checkbox-wrapper">
+            <label class="checkbox-label">
+              <input 
+                type="checkbox"
+                [(ngModel)]="product.details[0].attributes[attr.key]"
+                [disabled]="isLoading"
+              >
+              <span>Oui, ce produit a {{ attr.label.toLowerCase() }}</span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <!-- Price & Stock -->
+    <div class="form-section">
+      <h3>Prix ​​et inventaire</h3>
+      
+      <div class="form-row">
+        <div class="form-group">
+          <label>Prix (Ar) <span class="required">*</span></label>
+          <div class="price-input">
+            <span class="currency">Ar</span>
+            <input 
+              type="number" 
+              class="form-control"
+              placeholder="0"
+              [(ngModel)]="product.details[0].price"
+              [disabled]="isLoading"
+            >
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Quantité en stock</label>
+          <input 
+            type="number" 
+            class="form-control"
+            placeholder="0"
+            [(ngModel)]="product.details[0].stock"
+            [disabled]="isLoading"
+          >
+        </div>
+      </div>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <!-- Images -->
+    <div class="form-section">
+      <h3>Images</h3>
+      
+      <div class="upload-area">
+        <input 
+          type="file" 
+          id="fileInput"
+          multiple
+          (change)="onFileChange($event)"
+          accept="image/*"
+          hidden
+          [disabled]="isLoading"
+        >
+        <label for="fileInput" class="upload-box">
+          <mat-icon>cloud_upload</mat-icon>
+          <span class="upload-title">Cliquez pour télécharger des images</span>
+          <span class="upload-hint">PNG, JPG up to 10MB</span>
+        </label>
+      </div>
+
+      <!-- Image Preview -->
+      <div class="preview-grid" *ngIf="previewImages.length > 0">
+        <div class="preview-item" *ngFor="let img of previewImages; let i = index">
+          <img [src]="img" alt="Preview">
+          <button 
+            class="remove-btn" 
+            (click)="removeImage(i)"
+            [disabled]="isLoading"
+          > 
+            <mat-icon>close</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <!-- Footer -->
+  <div class="modal-footer">
+    <button class="btn-secondary" (click)="close()" [disabled]="isLoading">
+      Annuler
+    </button>
+    <button 
+      class="btn-primary" 
+      (click)="submit()" 
+      [disabled]="isLoading || !product.name || !product.categoryId || !product.details[0].price"
+    >
+      <span *ngIf="!isLoading">{{ getButtonText() }}</span>
+      <span *ngIf="isLoading" class="spinner"></span>
+    </button>
+  </div>
+</div>

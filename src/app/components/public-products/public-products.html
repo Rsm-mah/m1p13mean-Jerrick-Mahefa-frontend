@@ -1,0 +1,203 @@
+<app-navbar></app-navbar>
+
+<div class="page-wrapper">
+
+  <!-- HERO BANNER -->
+  <section class="hero">
+    <div class="hero-bg">
+      <div class="hero-gradient"></div>
+      <div class="hero-pattern"></div>
+    </div>
+
+    <div class="hero-content">
+
+      <h1 class="hero-title animate-fade-up-1">
+        Tout ce dont vous avez besoin,<br><em>au même endroit</em>
+      </h1>
+
+      <p class="hero-sub animate-fade-up-2">
+        Mode, smartphones, électroménager et bien plus encore. Découvrez des produits sélectionnés pour leur qualité et leur performance.
+      </p>
+    </div>
+  </section>
+
+  <!-- FILTERS -->
+  <section class="filters-section">
+    <div class="container">
+      <div class="filters-bar">
+        <div class="filters-left">
+          <!-- <span class="results-count">48 produits</span> -->
+
+          <div class="filter-tabs">
+            <button 
+              class="filter-tab"
+              [class.active]="selectedCategory === 'all'"
+              (click)="filterByCategory('all')">
+              Tous
+            </button>
+
+            <button 
+              class="filter-tab"
+              *ngFor="let cat of categories"
+              [class.active]="selectedCategory === cat._id"
+              (click)="filterByCategory(cat._id)">
+              
+              {{ cat.name }}
+            </button>
+          </div>
+
+        </div>
+        <div class="filters-right">
+          <div class="search-input-wrap">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+            </svg>
+            <input class="search-input" placeholder="Rechercher un produit…">
+          </div>
+          <select class="sort-select">
+            <option>Trier : Pertinence</option>
+            <option>Prix croissant</option>
+            <option>Prix décroissant</option>
+            <option>Nouveautés</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCTS GRID -->
+  <section class="products-section">
+    <div class="container">
+      <div class="products-grid">
+
+        <!-- Card 1 — featured -->
+        <div class="product-card" *ngFor="let product of products">
+          <div class="card-image-wrap">
+            <div class="card-image" style="background: linear-gradient(135deg,#d0e8d8 0%,#b0d4bc 100%)">
+              <img [src]="getFirstImage(product)" [alt]="product.name" loading="lazy">
+            </div>
+            <div class="card-overlay">
+              <button 
+                class="quick-view-btn"
+                [routerLink]="['/products-detail', product._id]">
+                Aperçu rapide
+              </button>
+            </div>
+            <div class="card-badges" *ngIf="getBadge(product)">
+              <span class="badge badge-gold">{{ getBadge(product) }}</span>
+            </div>
+            <!-- <button class="wishlist-btn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></button> -->
+          </div>
+          <div class="card-info">
+            <span class="card-category">{{ product.categoryId?.name }}</span>
+            <h3 class="card-name">{{ product.name }}</h3>
+            <div class="card-footer">
+              <div class="card-price"><span class="price-current">{{ getFirstPrice(product) | currency:'Ar ':'symbol':'1.0-0' }}</span></div>
+              <div class="card-rating"><span class="stars">★★★★☆</span><span class="rating-count">(29)</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- <div class="product-card" routerLink="/products/5">
+          <div class="card-image-wrap">
+            <div class="card-image" style="background: linear-gradient(135deg,#e8e0d0 0%,#d4cabc 100%)">
+              <div class="product-placeholder"><svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="#b8b0a0" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>
+            </div>
+            <div class="card-overlay"><button class="quick-view-btn">Aperçu rapide</button></div>
+            <button class="wishlist-btn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></button>
+          </div>
+          <div class="card-info">
+            <span class="card-category">Vêtements</span>
+            <h3 class="card-name">Chemise en lin naturel</h3>
+            <div class="card-footer">
+              <div class="card-price"><span class="price-current">76 000 Ar</span></div>
+              <div class="card-rating"><span class="stars">★★★★★</span><span class="rating-count">(51)</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card" routerLink="/products/6">
+          <div class="card-image-wrap">
+            <div class="card-image" style="background: linear-gradient(135deg,#ddd0e8 0%,#c8b0d4 100%)">
+              <div class="product-placeholder"><svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="#a890b8" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>
+            </div>
+            <div class="card-overlay"><button class="quick-view-btn">Aperçu rapide</button></div>
+            <div class="card-badges"><span class="badge badge-gold">Solde</span></div>
+            <button class="wishlist-btn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></button>
+          </div>
+          <div class="card-info">
+            <span class="card-category">Accessoires</span>
+            <h3 class="card-name">Ceinture en cuir grainé</h3>
+            <div class="card-footer">
+              <div class="card-price"><span class="price-current">42 000 Ar</span><span class="price-old">65 000 Ar</span></div>
+              <div class="card-rating"><span class="stars">★★★☆☆</span><span class="rating-count">(11)</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card" routerLink="/products/7">
+          <div class="card-image-wrap">
+            <div class="card-image" style="background: linear-gradient(135deg,#d0e4e8 0%,#b0ccd4 100%)">
+              <div class="product-placeholder"><svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="#90b4b8" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>
+            </div>
+            <div class="card-overlay"><button class="quick-view-btn">Aperçu rapide</button></div>
+            <button class="wishlist-btn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></button>
+          </div>
+          <div class="card-info">
+            <span class="card-category">Maison</span>
+            <h3 class="card-name">Bougie de soja parfumée</h3>
+            <div class="card-footer">
+              <div class="card-price"><span class="price-current">28 000 Ar</span></div>
+              <div class="card-rating"><span class="stars">★★★★★</span><span class="rating-count">(93)</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card" routerLink="/products/8">
+          <div class="card-image-wrap">
+            <div class="card-image" style="background: linear-gradient(135deg,#e8d8d0 0%,#d4bcb0 100%)">
+              <div class="product-placeholder"><svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="#b8a098" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>
+            </div>
+            <div class="card-overlay"><button class="quick-view-btn">Aperçu rapide</button></div>
+            <button class="wishlist-btn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></button>
+          </div>
+          <div class="card-info">
+            <span class="card-category">Chaussures</span>
+            <h3 class="card-name">Bottines chelsea en daim</h3>
+            <div class="card-footer">
+              <div class="card-price"><span class="price-current">168 000 Ar</span></div>
+              <div class="card-rating"><span class="stars">★★★★☆</span><span class="rating-count">(24)</span></div>
+            </div>
+          </div>
+        </div> -->
+
+      </div>
+
+      <!-- PAGINATION -->
+      <div class="pagination">
+        <button class="page-btn" (click)="goToPage(currentPage - 1)" [disabled]="currentPage === 1">‹</button>
+
+        <span class="page-info">Page {{ currentPage }} / {{ totalPages }}</span>
+
+        <button class="page-btn" (click)="goToPage(currentPage + 1)" [disabled]="currentPage === totalPages">›</button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- BRAND STRIP -->
+  <section class="brand-strip">
+    <div class="container">
+      <p class="brand-label">Ils nous font confiance</p>
+      <div class="brands">
+        <span class="brand">ATELIER</span>
+        <span class="brand">MADELEINE</span>
+        <span class="brand">TERREAU</span>
+        <span class="brand">NOIRE</span>
+        <span class="brand">SOLÈNE</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- <app-footer></app-footer> -->
+</div>

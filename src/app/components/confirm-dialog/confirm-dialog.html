@@ -1,0 +1,22 @@
+<div class="confirm-container">
+
+  <div class="confirm-icon" [ngClass]="data.type || 'danger'">
+    <mat-icon>
+      {{ data.icon || 'warning' }}
+    </mat-icon>
+  </div>
+
+  <h2>{{ data.title }}</h2>
+  <p>{{ data.message }}</p>
+
+  <div class="confirm-actions">
+    <button class="btn-secondary" (click)="cancel()">
+      {{ data.cancelText || 'Annuler' }}
+    </button>
+
+    <button class="btn-primary danger" (click)="confirm()">
+      {{ data.confirmText || 'Confirmer' }}
+    </button>
+  </div>
+
+</div>

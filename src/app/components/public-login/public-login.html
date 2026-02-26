@@ -1,0 +1,54 @@
+<div class="auth-layout">
+    <div class="auth-form-wrap">
+      <div class="auth-header animate-fade-up">
+        <span class="section-eyebrow">Bienvenue</span>
+        <h1 class="auth-title">Se connecter</h1>
+      </div>
+
+      <!-- Form -->
+      <form class="auth-form animate-fade-up-2" (ngSubmit)="onSubmit()" [formGroup]="loginForm">
+        <div class="form-group">
+          <label>Adresse e-mail</label>
+          <div class="input-icon-wrap">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            <input class="form-control input-with-icon" type="email" id="email" placeholder="vous@exemple.com" formControlName="email">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="label-row">
+            <label>Mot de passe</label>
+            <a class="forgot-link">Mot de passe oublié ?</a>
+          </div>
+          <div class="input-icon-wrap">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+            <input class="form-control input-with-icon" type="password" id="password" placeholder="••••••••" formControlName="password">
+            <button type="button" class="toggle-pw">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Affichage du message d'erreur -->
+        <div *ngIf="errorMessage" class="auth-error alert alert-danger">
+          {{ errorMessage }}
+        </div>
+
+        <button type="submit" class="btn-primary auth-submit-btn" [disabled]="isLoading">
+          {{ isLoading ? 'Connexion...' : 'Se connecter' }}
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+      </form>
+
+      <p class="auth-switch animate-fade-up-3">
+        Pas encore de compte ?
+        <a class="auth-switch-link" href="/inscription">Créer un compte</a>
+      </p>
+
+      <p class="auth-switch animate-fade-up-3" style="margin-top: 20px;">
+        <a class="auth-switch-link" href="/products">Retourner à la page d'accueil</a>
+      </p>
+
+    </div>
+
+</div>

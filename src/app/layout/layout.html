@@ -1,0 +1,61 @@
+<div class="layout">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <!-- Logo -->
+    <div class="logo">
+      <span class="logo-icon">⚡</span>
+      <span class="logo-text">AceDesign</span>
+    </div>
+
+    <mat-divider class="divider"></mat-divider>
+
+    <!-- Navigation Menu -->
+    <div class="nav-menu">
+      <div 
+        *ngFor="let item of menuItems" 
+        class="nav-item"
+        [routerLink]="item.route"
+        routerLinkActive="active"
+        #rla="routerLinkActive"
+        [class.active]="rla.isActive"
+      >
+        <mat-icon class="nav-icon">{{ item.icon }}</mat-icon>
+        <span class="nav-title">{{ item.title }}</span>
+      </div>
+    </div>
+
+    <mat-divider class="divider"></mat-divider>
+
+    <!-- Account Settings -->
+    <div class="account-section">
+      <div class="menu-label">ACCOUNT</div>
+      <!-- <div class="menu-item" routerLink="/admin/settings" routerLinkActive="active">
+        <mat-icon class="menu-icon">settings</mat-icon>
+        <span class="menu-title">Settings</span>
+      </div>
+      <div class="menu-item" routerLink="/admin/notifications" routerLinkActive="active">
+        <mat-icon class="menu-icon">notifications</mat-icon>
+        <span class="menu-title">Notifications</span>
+      </div> -->
+      <div class="menu-item logout" (click)="logout()">
+        <mat-icon class="menu-icon">logout</mat-icon>
+        <span class="menu-title">Logout</span>
+      </div>
+    </div>
+
+    <!-- User Profile -->
+    <div class="user-profile">
+      <div class="user-avatar">
+        {{ currentUser?.name?.charAt(0) || 'A' }}
+      </div>
+      <div class="user-info">
+        <div class="user-name">{{ currentUser?.name || 'Admin User' }}</div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <router-outlet></router-outlet>
+  </main>
+</div>

@@ -1,0 +1,132 @@
+<app-navbar></app-navbar>
+
+<div class="page-wrapper">
+  <div class="container">
+
+    <div class="profile-layout">
+
+      <!-- SIDEBAR NAV -->
+      <aside class="profile-nav animate-fade-up">
+        <div class="profile-avatar-block">
+          <div class="avatar-circle">
+            <span>MD</span>
+            <button class="avatar-edit-btn">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+            </button>
+          </div>
+          <div class="avatar-info">
+            <h3 class="avatar-name">{{ profile?.name }} {{ profile?.first_name }}</h3>
+            <span class="avatar-email">{{ profile?.email }}</span>
+          </div>
+        </div>
+
+        <nav class="profile-menu">
+          <button class="pm-item active">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            Informations personnelles
+          </button>
+          <!-- <button class="pm-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Adresses
+          </button> -->
+          <div class="pm-divider"></div>
+          <button class="pm-item danger" (click)="logout()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9"/></svg>
+            Se déconnecter
+          </button>
+        </nav>
+      </aside>
+
+      <!-- MAIN CONTENT -->
+      <main class="profile-main animate-fade-up-1">
+
+        <!-- Personal Info -->
+        <div class="profile-section">
+          <div class="section-head">
+            <div>
+              <h2 class="profile-section-title">Informations personnelles</h2>
+              <p class="profile-section-sub">Gérez vos informations de profil et vos préférences</p>
+            </div>
+            <button class="edit-toggle-btn" (click)="toggleEdit()">
+              {{ editing ? 'Annuler' : 'Modifier' }}
+            </button>
+          </div>
+
+          <form class="profile-form">
+            <div class="form-row-2">
+                <div class="form-group">
+                    <label>Nom</label>
+                    <input class="form-control" [(ngModel)]="profile.name" [readonly]="!editing" name="name">
+                </div>
+                <div class="form-group">
+                    <label>Prénom</label>
+                    <input class="form-control" [(ngModel)]="profile.first_name" [readonly]="!editing" name="first_name">
+                </div>
+            </div>
+            <div class="form-row-2">
+              <div class="form-group">
+                <label>Adresse e-mail</label>
+                <div class="input-verified-wrap">
+                  <input class="form-control" [(ngModel)]="profile.email" [readonly]="!editing" name="email">
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Téléphone</label>
+                <input class="form-control" [(ngModel)]="profile.phone" [readonly]="!editing" name="phone">
+              </div>
+            </div>
+            <div class="form-row-2">
+              <div class="form-group">
+                <label>Adresse</label>
+                <input class="form-control" [(ngModel)]="profile.address" [readonly]="!editing" name="address">
+              </div>
+            </div>
+
+            <!-- Save (hidden when readonly) -->
+            <div class="form-actions" *ngIf="editing">
+              <button type="button" class="btn-primary" (click)="saveProfile(profile)">
+                Enregistrer les modifications
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- Password change -->
+        <!-- <div class="profile-section">
+          <div class="section-head">
+            <div>
+              <h2 class="profile-section-title">Sécurité</h2>
+              <p class="profile-section-sub">Gérez votre mot de passe</p>
+            </div>
+          </div>
+
+          <div class="security-items">
+            <div class="security-item">
+              <div class="si-info">
+                <span class="si-label">Mot de passe</span>
+                <span class="si-value">Dernière modification : il y a 3 mois</span>
+              </div>
+              <button class="edit-toggle-btn">Changer</button>
+            </div>
+          </div>
+        </div> -->
+
+        <div class="divider"></div>
+
+        <!-- Danger zone -->
+        <div class="profile-section danger-zone">
+          <h2 class="profile-section-title danger-title">Zone de danger</h2>
+          <p class="profile-section-sub">Ces actions sont irréversibles, soyez prudent.</p>
+          <div class="danger-actions">
+            <button class="danger-btn delete" (click)="deleteAccount()">Supprimer le compte définitivement</button>
+          </div>
+        </div>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- <app-footer></app-footer> -->
+</div>

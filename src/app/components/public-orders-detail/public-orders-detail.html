@@ -1,0 +1,87 @@
+<app-navbar></app-navbar>
+
+<div class="page-wrapper" *ngIf="order; else loading">
+  <div class="container">
+
+    <!-- BREADCRUMB -->
+    <div class="breadcrumb-bar">
+      <nav class="breadcrumb">
+        <a routerLink="/orders">Mes commandes</a>
+        <span class="bc-sep">›</span>
+        <span>#CMD-{{ order._id | slice:0:8 }}</span>
+      </nav>
+    </div>
+
+    <!-- HEADER -->
+    <div class="detail-header animate-fade-up">
+      <div class="detail-header-left">
+        <span class="section-eyebrow">Détail de commande</span>
+        <h1 class="section-title">#CMD-{{ order._id | slice:0:8 }}</h1>
+        <p class="detail-date">
+          Passée le {{ order.createdAt | date:'dd MMMM yyyy' }} ·
+          <strong>{{ order.items.length }} article{{ order.items.length > 1 ? 's' : '' }}</strong>
+        </p>
+      </div>
+      <div class="detail-header-right">
+        <span class="badge"
+          [ngClass]="{
+            'badge-green': order.status === 'EN COURS',
+            'badge-neutral': order.status === 'LIVREE',
+            'badge-red': order.status === 'ANNULEE'
+          }">
+          {{ order.status }}
+        </span>
+      </div>
+    </div>
+
+    <!-- DETAIL LAYOUT -->
+    <div class="detail-layout animate-fade-up-2">
+      <!-- LEFT -->
+      <div class="detail-main">
+
+        <!-- ITEMS -->
+        <div class="detail-section">
+          <h3 class="detail-section-title">Articles commandés</h3>
+
+          <div class="detail-item" *ngFor="let item of order.items">
+            <div class="di-image"
+              [style.background-image]="'url(' + item.image  + ')'"
+              style="background-size: cover; background-position: center;">
+            </div>
+            <div class="di-info">
+              <span class="di-brand">{{ item.category || 'Vêtements' }}</span>
+              <h4 class="di-name">{{ item.productName }}</h4>
+              <div class="di-attrs">
+                <span *ngIf="item.attributes?.color">Couleur : {{ item.attributes.color }}</span>
+                <span *ngIf="item.attributes?.size" class="attr-sep">·</span>
+                <span *ngIf="item.attributes?.size">Taille : {{ item.attributes.size }}</span>
+                <span class="attr-sep">·</span>
+                <span>Qté : {{ item.quantity }}</span>
+              </div>
+            </div>
+            <div class="di-price">{{ item.price | number }} Ar</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- RIGHT — Summary -->
+      <div class="detail-sidebar">
+        <div class="sidebar-card">
+          <h4 class="sidebar-title">Récapitulatif</h4>
+          <div class="sidebar-divider"></div>
+          <div class="summary-total">
+            <span>Total payé</span>
+            <span class="total-big">{{ order.totalAmount | number }} Ar</span>
+          </div>
+          <div class="sidebar-divider"></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<ng-template #loading>
+  <p>Chargement de la commande...</p>
+</ng-template>

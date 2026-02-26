@@ -1,0 +1,126 @@
+<app-navbar></app-navbar>
+
+<div class="page-wrapper">
+  <div class="container">
+
+    <!-- PAGE HEADER -->
+    <div class="page-header animate-fade-up">
+      <span class="section-eyebrow">Mon espace</span>
+      <h1 class="section-title">Mon Panier</h1>
+      <!-- <p class="page-subtitle">3 articles sélectionnés</p> -->
+    </div>
+
+    <div class="cart-layout">
+
+      <!-- LEFT — Items -->
+      <div class="cart-items">
+
+        <div class="cart-header-row">
+          <span>Produit</span>
+          <!-- <span>Taille</span> -->
+          <!-- <span></span> -->
+          <span>Quantité</span>
+          <span>Total</span>
+          <span></span>
+        </div>
+
+        <!-- Item 1 -->
+        <div class="cart-item animate-fade-up-1" *ngFor="let item of cart; let i = index">
+          <div class="item-product">
+            <img class="item-image" [src]="item.image" alt="{{ item.name }}">
+            <div class="item-info">
+              <span class="item-brand">{{ item.category }}</span>
+              <span class="item-brand">Boutique : {{ item.shop }}</span>
+              <h3 class="item-name">{{ item.name }}</h3>
+              <span class="item-color" *ngIf="item.attributes.color">Couleur : {{ item.attributes.color }}</span>
+              <span class="item-size" *ngIf="item.attributes.size">Taille : {{ item.attributes.size }}</span>
+            </div>
+          </div>
+          <!-- <div class="item-size">
+            <span class="size-pill">Taille : M</span>
+          </div> -->
+          <div class="item-qty">
+            <button (click)="decreaseQty(i)">−</button>
+            <span>{{ item.quantity }}</span>
+            <button (click)="increaseQty(i)">+</button>
+          </div>
+          <div class="item-total">{{ (item.price * item.quantity) | number }} Ar</div>
+          <button class="remove-btn" (click)="removeItem(i)">✕</button>
+        </div>
+
+        <!-- Continue shopping -->
+        <a class="continue-link" href="/products">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+          Continuer les achats
+        </a>
+
+      </div>
+
+      <!-- RIGHT — Summary -->
+      <div class="order-summary animate-fade-up-2">
+        <h3 class="summary-title">Récapitulatif</h3>
+
+        <div class="summary-lines">
+          <div class="summary-line">
+            <span>Sous-total ({{ totalItems }} articles): {{ subtotal | number }} Ar</span>
+          </div>
+          <div class="summary-line">
+            <span>Livraison</span>
+            <span class="free-delivery">Gratuite</span>
+          </div>
+          <!-- <div class="summary-line discount">
+            <span>Réduction (−20%)</span>
+            <span>−71 000 Ar</span>
+          </div> -->
+        </div>
+
+        <div class="divider-gold"></div>
+
+        <div class="summary-total">
+          <span>Total TTC</span>
+          <span class="total-amount">{{ subtotal | number }} Ar</span>
+        </div>
+
+        <div class="summary-buttons">
+          <button class="btn-primary" (click)="checkout()">
+            Passer commande
+          </button>
+
+          <button class="btn-secondary" (click)="clearCart()">
+            Vider le panier
+          </button>
+        </div>
+
+        <!-- <div class="payment-methods">
+          <span class="pm-label">Paiements acceptés</span>
+          <div class="pm-icons">
+            <div class="pm-card">Visa</div>
+            <div class="pm-card">MC</div>
+            <div class="pm-card">PayPal</div>
+            <div class="pm-card">Mvola</div>
+          </div>
+        </div> -->
+
+        <!-- Guarantees -->
+        <!-- <div class="summary-guarantees">
+          <div class="guarantee-item">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--success)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>Livraison estimée : 3–5 jours ouvrés</span>
+          </div>
+          <div class="guarantee-item">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--success)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>Retour gratuit sous 30 jours</span>
+          </div>
+          <div class="guarantee-item">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--success)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>Service client 7j/7</span>
+          </div>
+        </div> -->
+
+      </div>
+    </div>
+
+  </div>
+
+  <!-- <app-footer></app-footer> -->
+</div>

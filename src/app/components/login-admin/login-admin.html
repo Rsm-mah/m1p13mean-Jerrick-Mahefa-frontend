@@ -1,0 +1,87 @@
+<div class="login-container">
+  <div class="login-card">
+    <div class="login-header">
+      <h1>Connectez-vous à votre espace</h1>
+    </div>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
+      <div class="alert alert-error" *ngIf="authError && !authError.field">
+        {{ authError.message }}
+      </div>
+
+      <!-- Sélecteur de rôle -->
+      <div class="form-group role-selector">
+        <div class="role-buttons">
+          <button 
+            type="button"
+            class="role-btn" 
+            [class.active]="selectedRole === 'ADMIN'"
+            (click)="setRole('ADMIN')"
+          >
+            <span class="role-label">Administrateur</span>
+          </button>
+          <button 
+            type="button"
+            class="role-btn" 
+            [class.active]="selectedRole === 'SHOP'"
+            (click)="setRole('SHOP')"
+          >
+            <span class="role-label">Boutique</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Champ Nom d'utilisateur -->
+      <div class="form-group" [class.has-error]="hasFieldError('name')">
+        <label for="name">Nom d'utilisateur</label>
+        <input
+          type="text"
+          id="name"
+          formControlName="name"
+          [placeholder]="selectedRole === 'ADMIN' ? 'Super Admin' : 'Nom de la boutique'"
+          [class.is-invalid]="hasFieldError('name')"
+          [class.is-valid]="loginForm.get('name')?.valid && loginForm.get('name')?.touched && !authError?.field"
+        >
+        <div class="error-message" *ngIf="getErrorMessage('name')">
+          {{ getErrorMessage('name') }}
+        </div>
+      </div>
+
+      <!-- Champ Mot de passe -->
+      <div class="form-group" [class.has-error]="hasFieldError('password')">
+        <div class="password-header">
+          <label for="password">Mot de passe</label>
+        </div>
+        <div class="password-wrapper">
+          <input
+            [type]="hidePassword ? 'password' : 'text'"
+            id="password"
+            formControlName="password"
+            placeholder="•••••••••••••••"
+            [class.is-invalid]="hasFieldError('password')"
+            [class.is-valid]="loginForm.get('password')?.valid && loginForm.get('password')?.touched && !authError?.field"
+          >
+          <button
+            type="button"
+            class="toggle-password"
+            (click)="togglePasswordVisibility()"
+          >
+            {{ hidePassword ? 'Afficher' : 'Cacher' }}
+          </button>
+        </div>
+        <div class="error-message" *ngIf="getErrorMessage('password')">
+          {{ getErrorMessage('password') }}
+        </div>
+      </div>
+
+      <button 
+        type="submit" 
+        class="btn-login"
+        [disabled]="isLoading"
+      >
+        <span *ngIf="!isLoading">Se connecter</span>
+        <span *ngIf="isLoading" class="spinner"></span>
+      </button>
+    </form>
+  </div>
+</div>

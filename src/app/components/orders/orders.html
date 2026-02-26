@@ -1,0 +1,121 @@
+<div class="orders-page">
+  <div class="orders-header">
+    <div class="header-left">
+      <h1>Commandes</h1>
+    </div>
+  </div>
+
+  <div class="loading-container" *ngIf="isLoading">
+    <div class="loading-content">
+      <mat-spinner diameter="48"></mat-spinner>
+      <p>Chargement des commandes...</p>
+    </div>
+  </div>
+
+  <div class="error-container" *ngIf="!isLoading && errorMessage">
+    <div class="error-content">
+      <mat-icon class="error-icon">error_outline</mat-icon>
+      <h3>Une erreur est survenue</h3>
+      <p>{{ errorMessage }}</p>
+      <button class="retry-btn" (click)="retry()">
+        <mat-icon>refresh</mat-icon>
+        Réessayer
+      </button>
+    </div>
+  </div>
+
+  <mat-card-content *ngIf="!isLoading && !errorMessage">
+    <div class="orders-table-container">
+      <ng-container *ngIf="role === 'SHOP'; else adminTable">
+        <table class="orders-table">
+          <thead>
+            <tr>
+              <th>Commande</th>
+              <th>Produit</th>
+              <th>Quantité</th>
+              <th>Prix</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of orderItems">
+              <td>#CMD-{{ item.orderId | slice:0:8 }}</td>
+              <td>{{ item.productName }}</td>
+              <td>{{ item.quantity }}</td>
+              <td>{{ item.price }}</td>
+              <td>{{ item.createdAt | date:'dd MMMM yyyy' }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </ng-container>
+
+      <ng-template #adminTable>
+        <table class="orders-table">
+          <thead>
+            <tr>
+              <th><span class="th-label">Numéro</span></th>
+              <th><span class="th-label">Client</span></th>
+              <th><span class="th-label">Total</span></th>
+              <th><span class="th-label">Date</span></th>
+              <th><span class="th-label">Status</span></th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let order of orders; let i = index">
+              <td>
+                <div class="name-cell">
+                  <div class="name-meta">
+                    <span class="name-primary">#CMD-{{ order._id | slice:0:8 }}</span>
+                  </div>
+                </div>
+              </td>
+
+              <td>
+                <div class="attr-line">
+                  <div class="attr-label">
+                    {{ order.customerId.name }} {{ order.customerId.first_name }} 
+                  </div>
+                </div>
+              </td>
+
+              <td>
+                <div class="attr-line">
+                  <div class="attr-label">
+                    {{ order.totalAmount }}
+                  </div>
+                </div>
+              </td>
+
+              <td>
+                <div class="attr-line">
+                  <div class="attr-label">
+                    {{ order.createdAt | date:'dd MMMM yyyy' }}
+                  </div>
+                </div>
+              </td>
+
+              <td>
+                <div class="attr-line">
+                  <div class="attr-label">
+                    <span class="badge" [ngClass]="{
+                      'badge-green': order.status === 'EN COURS',
+                      'badge-neutral': order.status === 'LIVREE',
+                      'badge-red': order.status === 'ANNULEE'
+                    }">{{ order.status }}
+                    </span>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <button class="act-btn" title="Voir détails" (click)="viewOrderDetails(order)">
+                  <mat-icon>visibility</mat-icon>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </ng-template>
+    </div>
+  </mat-card-content>
+</div>

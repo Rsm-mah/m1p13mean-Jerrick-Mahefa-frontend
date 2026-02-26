@@ -1,0 +1,100 @@
+<div class="catories-page">
+    <!-- Header -->
+    <div class="products-header">
+        <div class="header-left">
+            <h1>Catégories</h1>
+        </div>
+        <div class="header-right">
+            <button class="create-btn" (click)="openCreateModal()">
+                <mat-icon>add</mat-icon>
+                Ajouter
+            </button>
+        </div>
+    </div>
+
+    <!-- Loading State - Centré parfaitement -->
+    <div class="loading-container" *ngIf="isLoading">
+        <div class="loading-content">
+        <mat-spinner diameter="48"></mat-spinner>
+        <p>Chargement des catégories...</p>
+        </div>
+    </div>
+
+    <!-- Error State -->
+    <div class="error-container" *ngIf="!isLoading && errorMessage">
+        <div class="error-content">
+        <mat-icon class="error-icon">error_outline</mat-icon>
+        <h3>Une erreur est survenue</h3>
+        <p>{{ errorMessage }}</p>
+        <button class="retry-btn" (click)="retry()">
+            <mat-icon>refresh</mat-icon>
+            Réessayer
+        </button>
+        </div>
+    </div>
+
+    <mat-card-content *ngIf="!isLoading && !errorMessage">
+        <div class="categories-table-container">
+            <table class="categories-table">
+                <thead>
+                    <tr>
+                        <th><span class="th-label">Noms</span></th>
+                        <th><span class="th-label">Attributs</span></th>
+                        <th></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr *ngFor="let category of categories">
+
+                        <!-- NOM -->
+                        <td>
+                            <div class="name-cell">
+                                <div class="name-meta">
+                                <span class="name-primary">{{ category.name }}</span>
+                                </div>
+                            </div>
+                        </td>
+
+                        <!-- ATTRIBUTS + OPTIONS ENSEMBLE -->
+                        <td>
+                            <div class="attr-options-stack">
+                                <div class="attr-line" *ngFor="let attr of category.attributes">
+                                
+                                <div class="attr-label">
+                                    {{ attr.label }}
+                                </div>
+
+                                <div class="attr-options">
+                                    <span class="opt-pill" *ngFor="let opt of attr.options">
+                                    {{ opt }}
+                                    </span>
+
+                                    <span *ngIf="!attr.options?.length" class="no-option">
+                                    -
+                                    </span>
+                                </div>
+
+                                </div>
+                            </div>
+                        </td>
+
+                        <!-- ACTIONS -->
+                        <td>
+                            <div class="actions-cell">
+                                <button class="act-btn" title="Modifier" (click)="editCategory(category)">
+                                    <mat-icon>edit</mat-icon>
+                                </button>
+                                <button class="act-btn del" title="Supprimer" (click)="deleteCategory(category)">
+                                <mat-icon>delete</mat-icon>
+                                </button>
+                            </div>
+                        </td>
+
+                    </tr>
+                </tbody>
+
+            </table>
+        </div>
+    </mat-card-content>
+</div>

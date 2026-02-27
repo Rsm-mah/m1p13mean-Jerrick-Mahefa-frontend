@@ -1,9 +1,12 @@
-export function getApiUrl(): string {
-  const win = window as any;
-  let url = (win.__env && win.__env.API_URL) ? win.__env.API_URL : 'http://localhost:3000';
-  if (!/^https?:\/\//i.test(url)) {
-    url = 'https://' + url;
-    
+declare global {
+  interface Window {
+    __env?: {
+      API_URL?: string;
+    };
   }
-  return url;
+}
+
+export function getApiUrl(): string {
+  const envUrl = window.__env?.API_URL ?? 'http://localhost:3000';
+  return /^https?:\/\//i.test(envUrl) ? envUrl : `https://${envUrl}`;
 }

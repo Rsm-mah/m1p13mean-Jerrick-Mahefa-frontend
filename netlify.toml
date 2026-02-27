@@ -1,6 +1,6 @@
 [build]
   command = "npm run build --prefix Frontend"
-  publish = "Frontend/dist/Frontend"
+  publish = "Frontend/dist/Frontend/browser"
 
 [[redirects]]
   from = "/*"

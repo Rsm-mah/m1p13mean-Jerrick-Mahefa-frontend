@@ -61,6 +61,13 @@ export class OrderService {
     });
   }
 
+  getRecentOrdersForShop(): Observable<Order[]> {
+    const token = localStorage.getItem('token');
+    return this.http.get<Order[]>(`${this.apiUrl}/recents/shop`, {
+      headers: { Authorization: `Bearer ${token}` }
+    });
+  }
+
   getStats(): Observable<any> {
     const token = localStorage.getItem('token');
     return this.http.get<any>(`${this.apiUrl}/stats`, {

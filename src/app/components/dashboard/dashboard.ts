@@ -12,6 +12,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatMenuModule } from '@angular/material/menu';
 import { AuthAdminService } from '../../services/auth-admin';
 import { OrderService } from '../../services/oders';
+import { FooterComponent } from '../footer/footer';
 
 @Component({
   selector: 'app-dashboard',
@@ -27,7 +28,8 @@ import { OrderService } from '../../services/oders';
     MatProgressBarModule,
     MatChipsModule,
     MatTabsModule,
-    MatMenuModule
+    MatMenuModule,
+    FooterComponent
   ],
   templateUrl: './dashboard.html',
   styleUrls: ['./dashboard.css']
@@ -51,10 +53,21 @@ export class Dashboard implements OnInit {
   }
 
   loadRecentOrders(): void {
+    const user = this.currentUser;
+    if (user && user.role === 'SHOP') {
+      this.orderService.getRecentOrdersForShop().subscribe({
+        next: (orders) => {
+          this.recentOrders = orders || [];
+          this.cdr.detectChanges();
+        },
+        error: (err) => console.error('Erreur récupération commandes récentes shop', err)
+      });
+      return;
+    }
+
     this.orderService.getRecentOrders().subscribe({
       next: (orders) => {
         this.recentOrders = orders || [];
-
         this.cdr.detectChanges();
       },
       error: (err) => {

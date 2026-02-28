@@ -5,6 +5,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { AuthAdminService } from '../services/auth-admin';
+import { FooterComponent } from '../components/footer/footer';
 
 @Component({
   selector: 'app-admin-layout',
@@ -14,7 +15,8 @@ import { AuthAdminService } from '../services/auth-admin';
     RouterModule,
     MatIconModule,
     MatButtonModule,
-    MatDividerModule
+    MatDividerModule,
+    FooterComponent
   ],
   templateUrl: './layout.html',
   styleUrls: ['./layout.css']

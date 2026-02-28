@@ -80,6 +80,7 @@
               <tr>
                 <th>Commande</th>
                 <th>Client</th>
+                <th>Boutique</th>
                 <th>Date</th>
                 <th>Total</th>
                 <th>Statut</th>
@@ -92,6 +93,11 @@
                 <td class="order-customer">
                   <div class="customer-info">
                     <span class="customer-name">{{ order.customerId?.name }} {{ order.customerId?.first_name }}</span>
+                  </div>
+                </td>
+                <td class="order-shop">
+                  <div class="shop-info">
+                    <span class="shop-name">{{ order.shop || (order.items && order.items.length ? order.items[0].shopName : '') }}</span>
                   </div>
                 </td>
                 <td>{{ order.createdAt | date:'dd/MM/yyyy' }}</td>

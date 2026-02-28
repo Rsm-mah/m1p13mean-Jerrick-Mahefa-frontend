@@ -3,6 +3,7 @@ import { Navbar } from '../navbar/navbar';
 import { CommonModule } from '@angular/common';
 import { Order, OrderService } from '../../services/oders';
 import { Router, RouterLink } from '@angular/router';
+import { FooterComponent } from '../footer/footer';
 
 @Component({
   selector: 'app-public-orders',
@@ -10,6 +11,7 @@ import { Router, RouterLink } from '@angular/router';
     [Navbar],
     CommonModule,
     RouterLink
+    ,FooterComponent
   ],
   templateUrl: './public-orders.html',
   styleUrl: './public-orders.css',

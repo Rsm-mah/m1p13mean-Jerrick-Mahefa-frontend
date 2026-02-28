@@ -3,12 +3,14 @@ import { Navbar } from '../navbar/navbar';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { OrderService } from '../../services/oders';
+import { FooterComponent } from '../footer/footer';
 
 @Component({
   selector: 'app-public-orders-detail',
   imports: [
     [Navbar],
-    CommonModule
+    CommonModule,
+    FooterComponent
   ],
   templateUrl: './public-orders-detail.html',
   styleUrl: './public-orders-detail.css',

@@ -11,6 +11,7 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ProductCreate } from '../product-create/product-create';
 import { ProductsService } from '../../services/products';
+import { FooterComponent } from '../footer/footer';
 
 @Component({
   selector: 'app-products',
@@ -24,7 +25,8 @@ import { ProductsService } from '../../services/products';
     MatChipsModule,
     MatMenuModule,
     MatDialogModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    FooterComponent
   ],
   templateUrl: './products.html',
   styleUrls: ['./products.css']

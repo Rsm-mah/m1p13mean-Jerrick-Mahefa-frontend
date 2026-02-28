@@ -5,6 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ProductsService } from '../../services/products';
 import { RouterLink } from '@angular/router';
 import { CategoriesService } from '../../services/categories';
+import { FooterComponent } from '../footer/footer';
 
 @Component({
   selector: 'app-public-products',
@@ -12,6 +13,7 @@ import { CategoriesService } from '../../services/categories';
     [Navbar],
     CommonModule,
     RouterLink
+    ,FooterComponent
   ],
   templateUrl: './public-products.html',
   styleUrl: './public-products.css',

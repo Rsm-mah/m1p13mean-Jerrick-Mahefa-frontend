@@ -3,12 +3,14 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { OrderService } from '../../services/oders';
 import { MatIconModule } from '@angular/material/icon';
+import { FooterComponent } from '../footer/footer';
 
 @Component({
   selector: 'app-orders-detail',
   imports: [
     CommonModule,
     MatIconModule
+    ,FooterComponent
   ],
   templateUrl: './orders-detail.html',
   styleUrl: './orders-detail.css',

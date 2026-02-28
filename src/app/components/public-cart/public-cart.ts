@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { Navbar } from '../navbar/navbar';
 import { CartItem, CartService } from '../../services/cart';
+import { FooterComponent } from '../footer/footer';
 
 @Component({
   selector: 'app-public-cart',
@@ -11,6 +12,7 @@ import { CartItem, CartService } from '../../services/cart';
     CommonModule,
     RouterModule,
     Navbar
+    ,FooterComponent
   ],
   templateUrl: './public-cart.html',
   styleUrl: './public-cart.css',

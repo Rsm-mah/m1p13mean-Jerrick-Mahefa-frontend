@@ -4,6 +4,7 @@ import { Navbar } from '../navbar/navbar';
 import { ActivatedRoute } from '@angular/router';
 import { ProductsService } from '../../services/products';
 import { CartService } from '../../services/cart';
+import { FooterComponent } from '../footer/footer';
 
 @Component({
   selector: 'app-public-product-detail',
@@ -11,6 +12,7 @@ import { CartService } from '../../services/cart';
   imports: [
     Navbar,
     CommonModule,
+    FooterComponent,
   ],
   templateUrl: './public-product-detail.html',
   styleUrl: './public-product-detail.css',

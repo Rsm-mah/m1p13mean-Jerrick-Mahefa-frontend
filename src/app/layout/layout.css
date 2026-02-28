@@ -11,6 +11,10 @@
   background-color: #f5f7fa;
 }
 
+.layout {
+  overflow-x: hidden;
+}
+
 /* Sidebar */
 .sidebar {
   width: 280px;
@@ -320,12 +324,19 @@
 }
 
 /* Main Content */
+.content-wrapper {
+  margin-left: 280px;
+  width: calc(100% - 280px);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: transparent;
+}
+
 .main-content {
   flex: 1;
-  margin-left: 280px;
-  padding: 32px;
+  padding: 32px 32px 24px;
   background-color: #f8fafc;
-  min-height: 100vh;
 }
 
 /* Responsive */

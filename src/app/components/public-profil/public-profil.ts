@@ -6,6 +6,7 @@ import { CustomersService } from '../../services/customers';
 import { ConfirmDialog } from '../confirm-dialog/confirm-dialog';
 import { MatDialog } from '@angular/material/dialog';
 import { FormsModule } from '@angular/forms';
+import { FooterComponent } from '../footer/footer';
 
 @Component({
   selector: 'app-public-profil',
@@ -13,6 +14,7 @@ import { FormsModule } from '@angular/forms';
     [Navbar],
     FormsModule,
     CommonModule
+    ,FooterComponent
   ],
   templateUrl: './public-profil.html',
   styleUrl: './public-profil.css',

@@ -3,12 +3,14 @@ import { ChangeDetectorRef, Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CustomersService, AuthError } from '../../services/customers';
 import { Router } from '@angular/router';
+import { FooterComponent } from '../footer/footer';
 
 @Component({
   selector: 'app-public-login',
   imports: [
     CommonModule,
     ReactiveFormsModule
+    ,FooterComponent
   ],
   templateUrl: './public-login.html',
   styleUrls: ['./public-login.css'],

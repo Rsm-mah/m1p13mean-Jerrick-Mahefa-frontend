@@ -53,6 +53,17 @@ export class Layout implements OnInit {
       icon: 'people',
       route: '/admin/customers',
       badge: null
+    },
+    {
+      title: 'Boutiques',
+      icon: 'store',
+      route: '/admin/shops',
+      badge: null
+    },
+    {
+      title: 'Boxes',
+      icon: 'inventory',
+      route: '/admin/boxes'
     }
   ];
 
@@ -69,7 +80,7 @@ export class Layout implements OnInit {
     // If the current user is not an ADMIN, hide category and customer menu items
     if (!this.currentUser || this.currentUser.role !== 'ADMIN') {
       this.menuItems = this.baseMenuItems.filter(item => {
-        return item.route !== '/admin/categories' && item.route !== '/admin/customers';
+        return item.route !== '/admin/categories' && item.route !== '/admin/customers' && item.route !== '/admin/shops' && item.route !== '/admin/boxes';
       });
     }
   }

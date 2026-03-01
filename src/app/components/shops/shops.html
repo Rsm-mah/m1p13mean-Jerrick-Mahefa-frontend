@@ -1,0 +1,85 @@
+<div class="catories-page">
+  <!-- Header -->
+  <div class="products-header">
+    <div class="header-left">
+      <h1>Boutiques</h1>
+    </div>
+    <div class="header-right">
+      <button class="create-btn" (click)="openCreateModal()">
+        <mat-icon>add</mat-icon>
+        Ajouter
+      </button>
+    </div>
+  </div>
+
+  <!-- Loading State -->
+  <div class="loading-container" *ngIf="isLoading">
+    <div class="loading-content">
+      <mat-spinner diameter="48"></mat-spinner>
+      <p>Chargement des boutiques...</p>
+    </div>
+  </div>
+
+  <!-- Error State -->
+  <div class="error-container" *ngIf="!isLoading && errorMessage">
+    <div class="error-content">
+      <mat-icon class="error-icon">error_outline</mat-icon>
+      <h3>Une erreur est survenue</h3>
+      <p>{{ errorMessage }}</p>
+      <button class="retry-btn" (click)="retry()">
+        <mat-icon>refresh</mat-icon>
+        Réessayer
+      </button>
+    </div>
+  </div>
+
+  <mat-card-content *ngIf="!isLoading && !errorMessage">
+    <div class="customers-table-container">
+      <table class="customers-table">
+        <thead>
+          <tr>
+            <th><span class="th-label">Nom</span></th>
+            <th><span class="th-label">Email</span></th>
+            <th><span class="th-label">Téléphone</span></th>
+            <th></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let shop of shops">
+            <td>
+              <div class="name-cell">
+                <div class="name-meta">
+                  <span class="name-primary">{{ shop.name }}</span>
+                </div>
+              </div>
+            </td>
+
+            <td>
+              <div class="attr-line">
+                <div class="attr-label">{{ shop?.contacts?.email || '-' }}</div>
+              </div>
+            </td>
+
+            <td>
+              <div class="attr-line">
+                <div class="attr-label">{{ shop?.contacts?.phone || '-' }}</div>
+              </div>
+            </td>
+
+            <td>
+              <div class="actions-cell">
+                <button class="act-btn" title="Modifier" (click)="editShop(shop)">
+                  <mat-icon>edit</mat-icon>
+                </button>
+                <button class="act-btn del" title="Supprimer" (click)="deleteShop(shop)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </mat-card-content>
+</div>

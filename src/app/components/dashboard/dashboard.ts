@@ -29,7 +29,6 @@ import { FooterComponent } from '../footer/footer';
     MatChipsModule,
     MatTabsModule,
     MatMenuModule,
-    FooterComponent
   ],
   templateUrl: './dashboard.html',
   styleUrls: ['./dashboard.css']

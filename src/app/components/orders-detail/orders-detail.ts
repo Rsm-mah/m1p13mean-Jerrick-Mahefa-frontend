@@ -9,8 +9,7 @@ import { FooterComponent } from '../footer/footer';
   selector: 'app-orders-detail',
   imports: [
     CommonModule,
-    MatIconModule
-    ,FooterComponent
+    MatIconModule,
   ],
   templateUrl: './orders-detail.html',
   styleUrl: './orders-detail.css',

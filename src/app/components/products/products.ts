@@ -26,7 +26,6 @@ import { FooterComponent } from '../footer/footer';
     MatMenuModule,
     MatDialogModule,
     MatProgressSpinnerModule,
-    FooterComponent
   ],
   templateUrl: './products.html',
   styleUrls: ['./products.css']

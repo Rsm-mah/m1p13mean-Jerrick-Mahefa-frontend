@@ -15,6 +15,8 @@ import { PublicOrdersDetail } from './components/public-orders-detail/public-ord
 import { PublicProfil } from './components/public-profil/public-profil';
 import { Orders } from './components/orders/orders';
 import { OrdersDetail } from './components/orders-detail/orders-detail';
+import { BoxesComponent } from './components/boxes/boxes';
+import { Shops } from './components/shops/shops';
 
 export const routes: Routes = [
   // --- Login ---
@@ -32,7 +34,9 @@ export const routes: Routes = [
       { path: 'products', component: Products },
       { path: 'orders', component: Orders },
       { path: 'orders/detail/:id', component: OrdersDetail },
-      { path: 'customers', component: Customers }
+      { path: 'customers', component: Customers },
+      { path: 'shops', component: Shops },
+      { path: 'boxes', component: BoxesComponent },
     ]
   },
 
